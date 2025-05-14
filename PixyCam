@@ -1,0 +1,72 @@
+sudo apt-get update #라즈베리파이 터미널에서 라이브러리와 도구를 설치
+sudo apt-get install libusb-1.0-0-dev
+sudo apt-get install libboost-all-dev
+sudo apt-get install cmake
+
+git clone https://github.com/charmedlabs/pixy.git  #라즈베리파이 pixyCam 소스 코드 및 다운로드
+cd pixy/scripts
+./build_libpixyusb2.sh
+
+import pixy #책의 옆면을 인식하는 pixy 파이썬 예제
+from ctypes import *
+
+# Pixy2 초기화
+pixy.init()
+pixy.change_prog("color_connected_components")
+
+while True:
+    # 블록(감지된 객체) 정보 가져오기
+    count = pixy.ccc_get_blocks(100, byref(pixy.BlockArray), 100)
+    if count > 0:
+        print(f"Detected {count} blocks")
+        for i in range(count):
+            block = pixy.BlockArray[i]
+            # signature: 학습한 색상/패턴 번호
+            # x, y: 객체 중심 좌표
+            # width, height: 객체 크기
+            print(f"Block {i}: signature={block.signature}, x={block.x}, y={block.y}, width={block.width}, height={block.height}")
+            # 책등의 크기, 위치, signature를 활용해 책을 인식하는 로직을 추가
+
+#요약
+#PixyCam2는 라즈베리파이4와 USB로 간단히 연결하며, 공식 라이브러리와 예제 코드가 제공됩니다.
+#PixyMon 소프트웨어로 책등(책의 옆면) 색상/패턴을 학습시켜 인식할 수 있습니다.
+#Python/C++ 라이브러리로 실시간 객체 인식 및 위치/크기 정보 추출이 가능하며, 이를 활용해 책의 API(정보)를 연동할 수 있습니다.
+
+#PixyMon 사용법과 책 옆면 색상/패턴 시그니처 학습 방법
+#PixyMon은 Pixy2 카메라의 설정을 조정하고, 카메라가 인식하는 화면을 실시간으로 확인하며, 객체(책 옆면 등)의 색상이나 패턴을 시그니처로 학습시킬 수 있는 공식 소프트웨어입니다.
+
+#PixyMon 기본 사용법
+
+#PixyMon은 Windows, Mac, Linux, 라즈베리파이 등 다양한 플랫폼에서 실행할 수 있습니다.
+#Pixy2 카메라를 USB로 컴퓨터(또는 라즈베리파이)에 연결하고 PixyMon을 실행하면, 카메라가 보는 화면이 PixyMon에 실시간으로 표시됩니다.
+
+#책 옆면 색상/패턴 시그니처 학습 방법
+
+#PixyMon 실행 및 카메라 연결
+
+#Pixy2를 USB로 연결한 뒤 PixyMon을 실행합니다.
+#화면에 책의 옆면(책등)이 잘 보이도록 배치합니다.
+#Color Connected Components 모드 확인
+#PixyMon이 기본적으로 Color Connected Components 모드로 실행되며, 이 모드에서 색상 기반 객체 인식이 가능합니다.
+
+#시그니처 학습(트레이닝)
+
+#PixyMon 화면에서 인식하고 싶은 책등(특정 색상/패턴)이 화면에 보이도록 합니다.
+#메뉴에서 Action → Set Signature 1(또는 원하는 시그니처 번호)을 선택합니다.
+#마우스로 책등의 색상/패턴 부분을 드래그하여 영역을 지정합니다.
+#마우스 버튼을 놓으면, 해당 영역의 색상/패턴이 시그니처로 저장됩니다.
+
+#시그니처 이름(라벨) 지정 및 미세 조정
+
+#객체가 인식되면 PixyMon 화면에 시그니처 번호(s=1 등)가 표시됩니다.
+#File → Configure 메뉴에서 Signature Labels 탭을 선택해 시그니처에 이름을 붙일 수 있습니다.
+#Tuning 탭에서 슬라이더를 조정해 인식 범위를 미세하게 조정할 수 있습니다. 이를 통해 오인식(다른 색상 인식)이나 누락(원하는 색상 인식 실패)을 줄일 수 있습니다.
+
+#추가 팁
+
+#Pixy2는 최대 7개의 색상 시그니처를 학습할 수 있습니다. 각 시그니처는 서로 다른 책등(색상/패턴)에 할당할 수 있습니다.
+#시그니처 학습 후, Pixy2는 해당 색상/패턴이 화면에 나타나면 자동으로 인식하여 위치와 크기를 알려줍니다.
+
+#정리
+
+#PixyMon을 사용하면 책 옆면의 특정 색상이나 패턴을 마우스로 지정해 간단하게 시그니처로 학습시킬 수 있습니다.
