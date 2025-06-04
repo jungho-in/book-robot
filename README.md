@@ -37,6 +37,8 @@ https://jjuke-brain.tistory.com/entry/Introduction-to-Visual-SLAM-SLAM-%EA%B0%9C
 
 https://velog.io/@happycherry6/%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98
 
+https://www.mdstech.co.kr/cognata
+
 자율주행 알고리즘 등은 로봇 없이도 만들 수 있으니 시뮬레이션을 통하여 가상으로 구현가능.
 
 ## **알고리즘 제작에 필요한 기초 수학 지식**
