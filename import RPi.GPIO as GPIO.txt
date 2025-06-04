@@ -1,0 +1,41 @@
+import RPi.GPIO as GPIO
+import time
+
+LEFT_SENSOR = 17
+RIGHT_SENSOR = 18
+MOTOR_LEFT = 22
+MOTOR_RIGHT = 23
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(LEFT_SENSOR, GPIO.IN)
+GPIO.setup(RIGHT_SENSOR, GPIO.IN)
+GPIO.setup(MOTOR_LEFT, GPIO.OUT)
+GPIO.setup(MOTOR_RIGHT, GPIO.OUT)
+
+motor_left = GPIO.PWM(MOTOR_LEFT, 100)
+motor_right = GPIO.PWM(MOTOR_RIGHT, 100)
+motor_left.start(0)
+motor_right.start(0)
+
+try:
+    while True:
+        left = GPIO.input(LEFT_SENSOR)
+        right = GPIO.input(RIGHT_SENSOR)
+
+        if left == 0 and right == 0:
+            motor_left.ChangeDutyCycle(50)
+            motor_right.ChangeDutyCycle(50)
+        elif left == 0:
+            motor_left.ChangeDutyCycle(30)
+            motor_right.ChangeDutyCycle(60)
+        elif right == 0:
+            motor_left.ChangeDutyCycle(60)
+            motor_right.ChangeDutyCycle(30)
+        else:
+            motor_left.ChangeDutyCycle(0)
+            motor_right.ChangeDutyCycle(0)
+        time.sleep(0.01)
+except KeyboardInterrupt:
+    pass
+finally:
+    GPIO.cleanup()

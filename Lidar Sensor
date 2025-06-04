@@ -1,0 +1,46 @@
+#아래는 라즈베리파이4에서 저가형 LIDAR 센서를 사용해, 전방 2도 이내에서 장애물을 감지하면 즉시 모터를 멈추는 코드 예시입니다. 
+#실제 LIDAR 센서 라이브러리에 맞게 get_lidar_distance() 함수를 구현해주면 됩니다.
+
+import RPi.GPIO as GPIO
+import time
+
+# LIDAR 센서로부터 전방 2도 내 거리(cm) 측정값을 반환하는 함수
+def get_lidar_distance():
+    # 실제 사용 시 LIDAR 라이브러리에서 전방 2도 내 거리값을 읽어와야 함
+    # 예시: 15cm 앞에 장애물 감지
+    return 15
+
+# GPIO 핀 번호 설정 (BCM 모드)
+MOTOR_PIN1 = 18
+MOTOR_PIN2 = 23
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(MOTOR_PIN1, GPIO.OUT)
+GPIO.setup(MOTOR_PIN2, GPIO.OUT)
+
+def stop_motor():
+    GPIO.output(MOTOR_PIN1, GPIO.LOW)
+    GPIO.output(MOTOR_PIN2, GPIO.LOW)
+
+def move_forward():
+    GPIO.output(MOTOR_PIN1, GPIO.HIGH)
+    GPIO.output(MOTOR_PIN2, GPIO.LOW)
+
+try:
+    move_forward()  # 전진 시작
+    while True:
+        distance = get_lidar_distance()
+        if distance < 20:  # 20cm 이내 장애물 감지 시 정지
+            stop_motor()
+            print(f"장애물 감지! 거리: {distance}cm, 모터 정지")
+            break
+        time.sleep(0.1)
+except KeyboardInterrupt:
+    pass
+finally:
+    stop_motor()
+    GPIO.cleanup()
+
+#get_lidar_distance() 함수는 실제 LIDAR 센서 라이브러리에서 전방 2도 내 거리값을 읽어오도록 구현해야 합니다.
+
+#장애물이 20cm 이내로 감지되면 즉시 모터가 멈춥니다.
