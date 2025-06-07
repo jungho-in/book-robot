@@ -9,6 +9,8 @@
 
 -우리학교 교수님
 
+**만약 자율주행 사물인식 도서관 로봇을 만드는게 너무 어렵다면 특정 한 주제(자율주행 알고리즘, 사물인식 알고리즘 등)에 집중해서 특정 주제의 알고리즘을 만드는 것에 집중해도 괜찮음**
+
 ## **매우 기초적인 RC카 제작(이거 목표 아닙니다.)**
 
 https://velog.io/@agapao1234/%EB%9D%BC%EC%A6%88%EB%B2%A0%EB%A6%AC%ED%8C%8C%EC%9D%B4%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89-RC%EC%B9%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0
@@ -32,6 +34,14 @@ https://devmelody.com/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%B9%84%EC%A0%84-%EC%9D%B4%E
 https://nyoul.com/qa/?vid=6
 
 https://jjuke-brain.tistory.com/entry/Introduction-to-Visual-SLAM-SLAM-%EA%B0%9C%EC%9A%94
+
+## **자율주행 가상 시뮬레이션**
+
+https://velog.io/@happycherry6/%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98
+
+https://www.mdstech.co.kr/cognata
+
+자율주행 알고리즘 등은 로봇 없이도 만들 수 있으니 시뮬레이션을 통하여 가상으로 구현가능.
 
 ## **알고리즘 제작에 필요한 기초 수학 지식**
 
